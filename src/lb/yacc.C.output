@@ -1,0 +1,2756 @@
+
+
+Terminals which are not used:
+
+   TK_LEFT_BRACKET
+   TK_RIGHT_BRACKET
+   TK_COLON
+   TK_POINT
+
+
+
+Grammar
+rule 1    start -> blk_id reach blk_net blk_res
+rule 2    blk_id -> TK_IDENTIFIERS blk_int_id
+rule 3    blk_id ->		/* empty */
+rule 4    @1 ->		/* empty */
+rule 5    @2 ->		/* empty */
+rule 6    @3 ->		/* empty */
+rule 7    blk_int_id -> TK_ID @1 TK_ATTRIB @2 blk_exp @3 TK_SEMICOLON blk_int_id2
+rule 8    blk_int_id2 -> blk_int_id
+rule 9    blk_int_id2 ->		/* empty */
+rule 10   blk_exp -> elem exp
+rule 11   blk_exp2 -> blk_exp list_exp
+rule 12   list_exp -> TK_COMMA blk_exp2
+rule 13   list_exp ->		/* empty */
+rule 14   @4 ->		/* empty */
+rule 15   @5 ->		/* empty */
+rule 16   exp -> op_bin @4 elem @5 exp
+rule 17   exp ->		/* empty */
+rule 18   elem -> TK_LEFT_PARENTHESIS blk_exp TK_RIGHT_PARENTHESIS
+rule 19   elem -> op_unary elem
+rule 20   elem -> TK_MIN TK_LEFT_SQUARE_BRACKET blk_exp2 TK_RIGHT_SQUARE_BRACKET
+rule 21   elem -> TK_MAX TK_LEFT_SQUARE_BRACKET blk_exp2 TK_RIGHT_SQUARE_BRACKET
+rule 22   @6 ->		/* empty */
+rule 23   elem -> TK_REWARD @6 id_replic
+rule 24   @7 ->		/* empty */
+rule 25   elem -> TK_STATE_NUM @7 id_replic
+rule 26   @8 ->		/* empty */
+rule 27   @9 ->		/* empty */
+rule 28   elem -> TK_NBR @8 id_replic @9 interval
+rule 29   @10 ->		/* empty */
+rule 30   elem -> @10 op_rw dominion
+rule 31   @11 ->		/* empty */
+rule 32   elem -> TK_ID @11 replic
+rule 33   elem -> number
+rule 34   op_rw -> TK_SUM_RW
+rule 35   op_rw -> TK_PROD_RW
+rule 36   @12 ->		/* empty */
+rule 37   dominion -> id_stat @12 interval_1
+rule 38   interval -> interval_1
+rule 39   interval ->		/* empty */
+rule 40   @13 ->		/* empty */
+rule 41   @14 ->		/* empty */
+rule 42   @15 ->		/* empty */
+rule 43   @16 ->		/* empty */
+rule 44   interval_1 -> TK_LEFT_PARENTHESIS @13 id_replic @14 TK_COMMA @15 id_replic @16 TK_RIGHT_PARENTHESIS
+rule 45   id_stat -> id_replic
+rule 46   id_stat ->		/* empty */
+rule 47   @17 ->		/* empty */
+rule 48   id_replic -> TK_ID @17 replic
+rule 49   @18 ->		/* empty */
+rule 50   @19 ->		/* empty */
+rule 51   replic -> TK_LEFT_SQUARE_BRACKET @18 TK_INTEGER @19 TK_RIGHT_SQUARE_BRACKET
+rule 52   replic ->		/* empty */
+rule 53   number -> TK_REAL
+rule 54   number -> TK_INTEGER
+rule 55   number -> TK_EXPONENT
+rule 56   op_unary -> TK_PLUS
+rule 57   op_unary -> TK_MINUS
+rule 58   op_unary -> TK_NOT
+rule 59   op_bin -> TK_MULT
+rule 60   op_bin -> TK_DIV
+rule 61   op_bin -> TK_PLUS
+rule 62   op_bin -> TK_MINUS
+rule 63   op_bin -> TK_EQUAL
+rule 64   op_bin -> TK_UNEQUAL
+rule 65   op_bin -> TK_MAJOR
+rule 66   op_bin -> TK_MAJOR_EQUAL
+rule 67   op_bin -> TK_MINOR
+rule 68   op_bin -> TK_MINOR_EQUAL
+rule 69   op_bin -> TK_AND
+rule 70   op_bin -> TK_OR
+rule 71   op_bin -> TK_XOR
+rule 72   op_bin -> TK_SIMPLE
+rule 73   op_bin -> TK_DOUBLE
+rule 74   @20 ->		/* empty */
+rule 75   @21 ->		/* empty */
+rule 76   reach -> t_reach TK_REACH @20 TK_ATTRIB blk_exp @21 TK_SEMICOLON
+rule 77   t_reach -> TK_PARTIAL
+rule 78   t_reach ->		/* empty */
+rule 79   @22 ->		/* empty */
+rule 80   @23 ->		/* empty */
+rule 81   blk_net -> TK_NETWORK TK_ID @22 TK_LEFT_PARENTHESIS model_type TK_RIGHT_PARENTHESIS @23 blk_autom
+rule 82   model_type -> TK_DISCRETE
+rule 83   model_type -> TK_CONTINUOUS
+rule 84   @24 ->		/* empty */
+rule 85   @25 ->		/* empty */
+rule 86   @26 ->		/* empty */
+rule 87   blk_autom -> TK_AUTOMATON @24 TK_ID @25 blk_replic blk_state @26 blk_autom2
+rule 88   blk_autom2 -> blk_autom
+rule 89   blk_autom2 ->		/* empty */
+rule 90   @27 ->		/* empty */
+rule 91   @28 ->		/* empty */
+rule 92   @29 ->		/* empty */
+rule 93   blk_state -> TK_STATE @27 TK_ID @28 blk_queue blk_reward blk_trans @29 blk_state2
+rule 94   blk_state2 -> blk_state
+rule 95   blk_state2 ->		/* empty */
+rule 96   @30 ->		/* empty */
+rule 97   @31 ->		/* empty */
+rule 98   blk_trans -> TK_TRANS @30 TK_LEFT_PARENTHESIS dst_state TK_RIGHT_PARENTHESIS blk_type_trans @31 blk_trans2
+rule 99   blk_trans2 -> blk_trans
+rule 100  blk_trans2 ->		/* empty */
+rule 101  @32 ->		/* empty */
+rule 102  dst_state -> TK_ID @32 dst_replic
+rule 103  dst_state -> TK_EQUAL
+rule 104  dst_state -> TK_PLUS_PLUS
+rule 105  dst_state -> TK_MINUS_MINUS
+rule 106  dst_state -> TK_MINUS TK_INTEGER
+rule 107  dst_state -> TK_PLUS TK_INTEGER
+rule 108  @33 ->		/* empty */
+rule 109  dst_replic -> TK_LEFT_SQUARE_BRACKET TK_INTEGER @33 TK_RIGHT_SQUARE_BRACKET
+rule 110  dst_replic ->		/* empty */
+rule 111  @34 ->		/* empty */
+rule 112  blk_type_trans -> TK_MST TK_ID @34 TK_LEFT_PARENTHESIS mst_rate blk_mst_prob TK_RIGHT_PARENTHESIS blk_type_trans2
+rule 113  @35 ->		/* empty */
+rule 114  blk_type_trans -> TK_SYN TK_ID @35 blk_syn_prob blk_type_trans2
+rule 115  @36 ->		/* empty */
+rule 116  blk_type_trans -> TK_LOC TK_ID @36 TK_LEFT_PARENTHESIS local_rate blk_local_prob TK_RIGHT_PARENTHESIS blk_type_trans2
+rule 117  blk_type_trans2 -> blk_type_trans
+rule 118  blk_type_trans2 ->		/* empty */
+rule 119  blk_mst_prob -> TK_COMMA mst_prob
+rule 120  blk_mst_prob ->		/* empty */
+rule 121  blk_syn_prob -> TK_LEFT_PARENTHESIS syn_prob TK_RIGHT_PARENTHESIS
+rule 122  blk_syn_prob ->		/* empty */
+rule 123  blk_local_prob -> TK_COMMA local_prob
+rule 124  blk_local_prob ->		/* empty */
+rule 125  mst_rate -> number
+rule 126  mst_rate -> TK_ID
+rule 127  mst_prob -> number
+rule 128  mst_prob -> TK_ID
+rule 129  syn_prob -> number
+rule 130  syn_prob -> TK_ID
+rule 131  local_rate -> number
+rule 132  local_rate -> TK_ID
+rule 133  local_prob -> number
+rule 134  local_prob -> TK_ID
+rule 135  blk_replic -> TK_LEFT_SQUARE_BRACKET replic_number TK_RIGHT_SQUARE_BRACKET
+rule 136  blk_replic ->		/* empty */
+rule 137  replic_number -> TK_INTEGER
+rule 138  replic_number -> TK_ID
+rule 139  blk_queue -> TK_LEFT_SQUARE_BRACKET queue_number TK_RIGHT_SQUARE_BRACKET
+rule 140  blk_queue ->		/* empty */
+rule 141  queue_number -> TK_INTEGER
+rule 142  queue_number -> TK_ID
+rule 143  blk_reward -> TK_LEFT_PARENTHESIS reward_number TK_RIGHT_PARENTHESIS
+rule 144  blk_reward ->		/* empty */
+rule 145  reward_number -> signal number
+rule 146  reward_number -> TK_ID
+rule 147  @37 ->		/* empty */
+rule 148  blk_res -> TK_RESULTS @37 blk_def_res
+rule 149  @38 ->		/* empty */
+rule 150  @39 ->		/* empty */
+rule 151  blk_def_res -> TK_ID @38 TK_ATTRIB blk_exp @39 TK_SEMICOLON blk_def_res
+rule 152  blk_def_res ->		/* empty */
+rule 153  signal -> TK_PLUS
+rule 154  signal -> TK_MINUS
+rule 155  signal ->		/* empty */
+
+Terminals, with rules where they appear
+
+$ (-1)
+error (256)
+TK_IDENTIFIERS (257) 2
+TK_NETWORK (258) 81
+TK_AUTOMATON (259) 87
+TK_STATE (260) 93
+TK_TRANS (261) 98
+TK_MST (262) 112
+TK_SYN (263) 114
+TK_LOC (264) 116
+TK_RESULTS (265) 148
+TK_CONTINUOUS (266) 83
+TK_DISCRETE (267) 82
+TK_REACH (268) 76
+TK_PARTIAL (269) 77
+TK_MIN (270) 20
+TK_MAX (271) 21
+TK_STATE_NUM (272) 25
+TK_NBR (273) 28
+TK_REWARD (274) 23
+TK_SUM_RW (275) 34
+TK_PROD_RW (276) 35
+TK_ID (277) 7 32 48 81 87 93 102 112 114 116 126 128 130 132 134 138
+    142 146 151
+TK_INTEGER (278) 51 54 106 107 109 137 141
+TK_REAL (279) 53
+TK_EXPONENT (280) 55
+TK_LEFT_BRACKET (281)
+TK_RIGHT_BRACKET (282)
+TK_LEFT_PARENTHESIS (283) 18 44 81 98 112 116 121 143
+TK_RIGHT_PARENTHESIS (284) 18 44 81 98 112 116 121 143
+TK_LEFT_SQUARE_BRACKET (285) 20 21 51 109 135 139
+TK_RIGHT_SQUARE_BRACKET (286) 20 21 51 109 135 139
+TK_SEMICOLON (287) 7 76 151
+TK_COMMA (288) 12 44 119 123
+TK_ATTRIB (289) 7 76 151
+TK_COLON (290)
+TK_POINT (291)
+TK_SIMPLE (292) 72
+TK_DOUBLE (293) 73
+TK_PLUS (294) 56 61 107 153
+TK_PLUS_PLUS (295) 104
+TK_MINUS (296) 57 62 106 154
+TK_MINUS_MINUS (297) 105
+TK_MULT (298) 59
+TK_DIV (299) 60
+TK_AND (300) 69
+TK_OR (301) 70
+TK_XOR (302) 71
+TK_NOT (303) 58
+TK_EQUAL (304) 63 103
+TK_UNEQUAL (305) 64
+TK_MAJOR (306) 65
+TK_MAJOR_EQUAL (307) 66
+TK_MINOR (308) 67
+TK_MINOR_EQUAL (309) 68
+
+Nonterminals, with rules where they appear
+
+start (56)
+    on left: 1
+blk_id (57)
+    on left: 2 3, on right: 1
+blk_int_id (58)
+    on left: 7, on right: 2 8
+@1 (59)
+    on left: 4, on right: 7
+@2 (60)
+    on left: 5, on right: 7
+@3 (61)
+    on left: 6, on right: 7
+blk_int_id2 (62)
+    on left: 8 9, on right: 7
+blk_exp (63)
+    on left: 10, on right: 7 11 18 76 151
+blk_exp2 (64)
+    on left: 11, on right: 12 20 21
+list_exp (65)
+    on left: 12 13, on right: 11
+exp (66)
+    on left: 16 17, on right: 10 16
+@4 (67)
+    on left: 14, on right: 16
+@5 (68)
+    on left: 15, on right: 16
+elem (69)
+    on left: 18 19 20 21 23 25 28 30 32 33, on right: 10 16 19
+@6 (70)
+    on left: 22, on right: 23
+@7 (71)
+    on left: 24, on right: 25
+@8 (72)
+    on left: 26, on right: 28
+@9 (73)
+    on left: 27, on right: 28
+@10 (74)
+    on left: 29, on right: 30
+@11 (75)
+    on left: 31, on right: 32
+op_rw (76)
+    on left: 34 35, on right: 30
+dominion (77)
+    on left: 37, on right: 30
+@12 (78)
+    on left: 36, on right: 37
+interval (79)
+    on left: 38 39, on right: 28
+interval_1 (80)
+    on left: 44, on right: 37 38
+@13 (81)
+    on left: 40, on right: 44
+@14 (82)
+    on left: 41, on right: 44
+@15 (83)
+    on left: 42, on right: 44
+@16 (84)
+    on left: 43, on right: 44
+id_stat (85)
+    on left: 45 46, on right: 37
+id_replic (86)
+    on left: 48, on right: 23 25 28 44 45
+@17 (87)
+    on left: 47, on right: 48
+replic (88)
+    on left: 51 52, on right: 32 48
+@18 (89)
+    on left: 49, on right: 51
+@19 (90)
+    on left: 50, on right: 51
+number (91)
+    on left: 53 54 55, on right: 33 125 127 129 131 133 145
+op_unary (92)
+    on left: 56 57 58, on right: 19
+op_bin (93)
+    on left: 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73,
+    on right: 16
+reach (94)
+    on left: 76, on right: 1
+@20 (95)
+    on left: 74, on right: 76
+@21 (96)
+    on left: 75, on right: 76
+t_reach (97)
+    on left: 77 78, on right: 76
+blk_net (98)
+    on left: 81, on right: 1
+@22 (99)
+    on left: 79, on right: 81
+@23 (100)
+    on left: 80, on right: 81
+model_type (101)
+    on left: 82 83, on right: 81
+blk_autom (102)
+    on left: 87, on right: 81 88
+@24 (103)
+    on left: 84, on right: 87
+@25 (104)
+    on left: 85, on right: 87
+@26 (105)
+    on left: 86, on right: 87
+blk_autom2 (106)
+    on left: 88 89, on right: 87
+blk_state (107)
+    on left: 93, on right: 87 94
+@27 (108)
+    on left: 90, on right: 93
+@28 (109)
+    on left: 91, on right: 93
+@29 (110)
+    on left: 92, on right: 93
+blk_state2 (111)
+    on left: 94 95, on right: 93
+blk_trans (112)
+    on left: 98, on right: 93 99
+@30 (113)
+    on left: 96, on right: 98
+@31 (114)
+    on left: 97, on right: 98
+blk_trans2 (115)
+    on left: 99 100, on right: 98
+dst_state (116)
+    on left: 102 103 104 105 106 107, on right: 98
+@32 (117)
+    on left: 101, on right: 102
+dst_replic (118)
+    on left: 109 110, on right: 102
+@33 (119)
+    on left: 108, on right: 109
+blk_type_trans (120)
+    on left: 112 114 116, on right: 98 117
+@34 (121)
+    on left: 111, on right: 112
+@35 (122)
+    on left: 113, on right: 114
+@36 (123)
+    on left: 115, on right: 116
+blk_type_trans2 (124)
+    on left: 117 118, on right: 112 114 116
+blk_mst_prob (125)
+    on left: 119 120, on right: 112
+blk_syn_prob (126)
+    on left: 121 122, on right: 114
+blk_local_prob (127)
+    on left: 123 124, on right: 116
+mst_rate (128)
+    on left: 125 126, on right: 112
+mst_prob (129)
+    on left: 127 128, on right: 119
+syn_prob (130)
+    on left: 129 130, on right: 121
+local_rate (131)
+    on left: 131 132, on right: 116
+local_prob (132)
+    on left: 133 134, on right: 123
+blk_replic (133)
+    on left: 135 136, on right: 87
+replic_number (134)
+    on left: 137 138, on right: 135
+blk_queue (135)
+    on left: 139 140, on right: 93
+queue_number (136)
+    on left: 141 142, on right: 139
+blk_reward (137)
+    on left: 143 144, on right: 93
+reward_number (138)
+    on left: 145 146, on right: 143
+blk_res (139)
+    on left: 148, on right: 1
+@37 (140)
+    on left: 147, on right: 148
+blk_def_res (141)
+    on left: 151 152, on right: 148 151
+@38 (142)
+    on left: 149, on right: 151
+@39 (143)
+    on left: 150, on right: 151
+signal (144)
+    on left: 153 154 155, on right: 145
+
+
+state 0
+
+    TK_IDENTIFIERS	shift, and go to state 1
+
+    $default	reduce using rule 3 (blk_id)
+
+    start	go to state 230
+    blk_id	go to state 2
+
+
+
+state 1
+
+    blk_id  ->  TK_IDENTIFIERS . blk_int_id   (rule 2)
+
+    TK_ID	shift, and go to state 3
+
+    blk_int_id	go to state 4
+
+
+
+state 2
+
+    start  ->  blk_id . reach blk_net blk_res   (rule 1)
+
+    TK_PARTIAL	shift, and go to state 5
+
+    $default	reduce using rule 78 (t_reach)
+
+    reach	go to state 6
+    t_reach	go to state 7
+
+
+
+state 3
+
+    blk_int_id  ->  TK_ID . @1 TK_ATTRIB @2 blk_exp @3 TK_SEMICOLON blk_int_id2   (rule 7)
+
+    $default	reduce using rule 4 (@1)
+
+    @1  	go to state 8
+
+
+
+state 4
+
+    blk_id  ->  TK_IDENTIFIERS blk_int_id .   (rule 2)
+
+    $default	reduce using rule 2 (blk_id)
+
+
+
+state 5
+
+    t_reach  ->  TK_PARTIAL .   (rule 77)
+
+    $default	reduce using rule 77 (t_reach)
+
+
+
+state 6
+
+    start  ->  blk_id reach . blk_net blk_res   (rule 1)
+
+    TK_NETWORK	shift, and go to state 9
+
+    blk_net	go to state 10
+
+
+
+state 7
+
+    reach  ->  t_reach . TK_REACH @20 TK_ATTRIB blk_exp @21 TK_SEMICOLON   (rule 76)
+
+    TK_REACH	shift, and go to state 11
+
+
+
+state 8
+
+    blk_int_id  ->  TK_ID @1 . TK_ATTRIB @2 blk_exp @3 TK_SEMICOLON blk_int_id2   (rule 7)
+
+    TK_ATTRIB	shift, and go to state 12
+
+
+
+state 9
+
+    blk_net  ->  TK_NETWORK . TK_ID @22 TK_LEFT_PARENTHESIS model_type TK_RIGHT_PARENTHESIS @23 blk_autom   (rule 81)
+
+    TK_ID	shift, and go to state 13
+
+
+
+state 10
+
+    start  ->  blk_id reach blk_net . blk_res   (rule 1)
+
+    TK_RESULTS	shift, and go to state 14
+
+    blk_res	go to state 15
+
+
+
+state 11
+
+    reach  ->  t_reach TK_REACH . @20 TK_ATTRIB blk_exp @21 TK_SEMICOLON   (rule 76)
+
+    $default	reduce using rule 74 (@20)
+
+    @20 	go to state 16
+
+
+
+state 12
+
+    blk_int_id  ->  TK_ID @1 TK_ATTRIB . @2 blk_exp @3 TK_SEMICOLON blk_int_id2   (rule 7)
+
+    $default	reduce using rule 5 (@2)
+
+    @2  	go to state 17
+
+
+
+state 13
+
+    blk_net  ->  TK_NETWORK TK_ID . @22 TK_LEFT_PARENTHESIS model_type TK_RIGHT_PARENTHESIS @23 blk_autom   (rule 81)
+
+    $default	reduce using rule 79 (@22)
+
+    @22 	go to state 18
+
+
+
+state 14
+
+    blk_res  ->  TK_RESULTS . @37 blk_def_res   (rule 148)
+
+    $default	reduce using rule 147 (@37)
+
+    @37 	go to state 19
+
+
+
+state 15
+
+    start  ->  blk_id reach blk_net blk_res .   (rule 1)
+
+    $default	reduce using rule 1 (start)
+
+
+
+state 16
+
+    reach  ->  t_reach TK_REACH @20 . TK_ATTRIB blk_exp @21 TK_SEMICOLON   (rule 76)
+
+    TK_ATTRIB	shift, and go to state 20
+
+
+
+state 17
+
+    blk_int_id  ->  TK_ID @1 TK_ATTRIB @2 . blk_exp @3 TK_SEMICOLON blk_int_id2   (rule 7)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    blk_exp	go to state 34
+    elem	go to state 35
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 18
+
+    blk_net  ->  TK_NETWORK TK_ID @22 . TK_LEFT_PARENTHESIS model_type TK_RIGHT_PARENTHESIS @23 blk_autom   (rule 81)
+
+    TK_LEFT_PARENTHESIS	shift, and go to state 39
+
+
+
+state 19
+
+    blk_res  ->  TK_RESULTS @37 . blk_def_res   (rule 148)
+
+    TK_ID	shift, and go to state 40
+
+    $default	reduce using rule 152 (blk_def_res)
+
+    blk_def_res	go to state 41
+
+
+
+state 20
+
+    reach  ->  t_reach TK_REACH @20 TK_ATTRIB . blk_exp @21 TK_SEMICOLON   (rule 76)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    blk_exp	go to state 42
+    elem	go to state 35
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 21
+
+    elem  ->  TK_MIN . TK_LEFT_SQUARE_BRACKET blk_exp2 TK_RIGHT_SQUARE_BRACKET   (rule 20)
+
+    TK_LEFT_SQUARE_BRACKET	shift, and go to state 43
+
+
+
+state 22
+
+    elem  ->  TK_MAX . TK_LEFT_SQUARE_BRACKET blk_exp2 TK_RIGHT_SQUARE_BRACKET   (rule 21)
+
+    TK_LEFT_SQUARE_BRACKET	shift, and go to state 44
+
+
+
+state 23
+
+    elem  ->  TK_STATE_NUM . @7 id_replic   (rule 25)
+
+    $default	reduce using rule 24 (@7)
+
+    @7  	go to state 45
+
+
+
+state 24
+
+    elem  ->  TK_NBR . @8 id_replic @9 interval   (rule 28)
+
+    $default	reduce using rule 26 (@8)
+
+    @8  	go to state 46
+
+
+
+state 25
+
+    elem  ->  TK_REWARD . @6 id_replic   (rule 23)
+
+    $default	reduce using rule 22 (@6)
+
+    @6  	go to state 47
+
+
+
+state 26
+
+    elem  ->  TK_ID . @11 replic   (rule 32)
+
+    $default	reduce using rule 31 (@11)
+
+    @11 	go to state 48
+
+
+
+state 27
+
+    number  ->  TK_INTEGER .   (rule 54)
+
+    $default	reduce using rule 54 (number)
+
+
+
+state 28
+
+    number  ->  TK_REAL .   (rule 53)
+
+    $default	reduce using rule 53 (number)
+
+
+
+state 29
+
+    number  ->  TK_EXPONENT .   (rule 55)
+
+    $default	reduce using rule 55 (number)
+
+
+
+state 30
+
+    elem  ->  TK_LEFT_PARENTHESIS . blk_exp TK_RIGHT_PARENTHESIS   (rule 18)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    blk_exp	go to state 49
+    elem	go to state 35
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 31
+
+    op_unary  ->  TK_PLUS .   (rule 56)
+
+    $default	reduce using rule 56 (op_unary)
+
+
+
+state 32
+
+    op_unary  ->  TK_MINUS .   (rule 57)
+
+    $default	reduce using rule 57 (op_unary)
+
+
+
+state 33
+
+    op_unary  ->  TK_NOT .   (rule 58)
+
+    $default	reduce using rule 58 (op_unary)
+
+
+
+state 34
+
+    blk_int_id  ->  TK_ID @1 TK_ATTRIB @2 blk_exp . @3 TK_SEMICOLON blk_int_id2   (rule 7)
+
+    $default	reduce using rule 6 (@3)
+
+    @3  	go to state 50
+
+
+
+state 35
+
+    blk_exp  ->  elem . exp   (rule 10)
+
+    TK_SIMPLE	shift, and go to state 51
+    TK_DOUBLE	shift, and go to state 52
+    TK_PLUS	shift, and go to state 53
+    TK_MINUS	shift, and go to state 54
+    TK_MULT	shift, and go to state 55
+    TK_DIV	shift, and go to state 56
+    TK_AND	shift, and go to state 57
+    TK_OR	shift, and go to state 58
+    TK_XOR	shift, and go to state 59
+    TK_EQUAL	shift, and go to state 60
+    TK_UNEQUAL	shift, and go to state 61
+    TK_MAJOR	shift, and go to state 62
+    TK_MAJOR_EQUAL	shift, and go to state 63
+    TK_MINOR	shift, and go to state 64
+    TK_MINOR_EQUAL	shift, and go to state 65
+
+    $default	reduce using rule 17 (exp)
+
+    exp 	go to state 66
+    op_bin	go to state 67
+
+
+
+state 36
+
+    elem  ->  @10 . op_rw dominion   (rule 30)
+
+    TK_SUM_RW	shift, and go to state 68
+    TK_PROD_RW	shift, and go to state 69
+
+    op_rw	go to state 70
+
+
+
+state 37
+
+    elem  ->  number .   (rule 33)
+
+    $default	reduce using rule 33 (elem)
+
+
+
+state 38
+
+    elem  ->  op_unary . elem   (rule 19)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    elem	go to state 71
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 39
+
+    blk_net  ->  TK_NETWORK TK_ID @22 TK_LEFT_PARENTHESIS . model_type TK_RIGHT_PARENTHESIS @23 blk_autom   (rule 81)
+
+    TK_CONTINUOUS	shift, and go to state 72
+    TK_DISCRETE	shift, and go to state 73
+
+    model_type	go to state 74
+
+
+
+state 40
+
+    blk_def_res  ->  TK_ID . @38 TK_ATTRIB blk_exp @39 TK_SEMICOLON blk_def_res   (rule 151)
+
+    $default	reduce using rule 149 (@38)
+
+    @38 	go to state 75
+
+
+
+state 41
+
+    blk_res  ->  TK_RESULTS @37 blk_def_res .   (rule 148)
+
+    $default	reduce using rule 148 (blk_res)
+
+
+
+state 42
+
+    reach  ->  t_reach TK_REACH @20 TK_ATTRIB blk_exp . @21 TK_SEMICOLON   (rule 76)
+
+    $default	reduce using rule 75 (@21)
+
+    @21 	go to state 76
+
+
+
+state 43
+
+    elem  ->  TK_MIN TK_LEFT_SQUARE_BRACKET . blk_exp2 TK_RIGHT_SQUARE_BRACKET   (rule 20)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    blk_exp	go to state 77
+    blk_exp2	go to state 78
+    elem	go to state 35
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 44
+
+    elem  ->  TK_MAX TK_LEFT_SQUARE_BRACKET . blk_exp2 TK_RIGHT_SQUARE_BRACKET   (rule 21)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    blk_exp	go to state 77
+    blk_exp2	go to state 79
+    elem	go to state 35
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 45
+
+    elem  ->  TK_STATE_NUM @7 . id_replic   (rule 25)
+
+    TK_ID	shift, and go to state 80
+
+    id_replic	go to state 81
+
+
+
+state 46
+
+    elem  ->  TK_NBR @8 . id_replic @9 interval   (rule 28)
+
+    TK_ID	shift, and go to state 80
+
+    id_replic	go to state 82
+
+
+
+state 47
+
+    elem  ->  TK_REWARD @6 . id_replic   (rule 23)
+
+    TK_ID	shift, and go to state 80
+
+    id_replic	go to state 83
+
+
+
+state 48
+
+    elem  ->  TK_ID @11 . replic   (rule 32)
+
+    TK_LEFT_SQUARE_BRACKET	shift, and go to state 84
+
+    $default	reduce using rule 52 (replic)
+
+    replic	go to state 85
+
+
+
+state 49
+
+    elem  ->  TK_LEFT_PARENTHESIS blk_exp . TK_RIGHT_PARENTHESIS   (rule 18)
+
+    TK_RIGHT_PARENTHESIS	shift, and go to state 86
+
+
+
+state 50
+
+    blk_int_id  ->  TK_ID @1 TK_ATTRIB @2 blk_exp @3 . TK_SEMICOLON blk_int_id2   (rule 7)
+
+    TK_SEMICOLON	shift, and go to state 87
+
+
+
+state 51
+
+    op_bin  ->  TK_SIMPLE .   (rule 72)
+
+    $default	reduce using rule 72 (op_bin)
+
+
+
+state 52
+
+    op_bin  ->  TK_DOUBLE .   (rule 73)
+
+    $default	reduce using rule 73 (op_bin)
+
+
+
+state 53
+
+    op_bin  ->  TK_PLUS .   (rule 61)
+
+    $default	reduce using rule 61 (op_bin)
+
+
+
+state 54
+
+    op_bin  ->  TK_MINUS .   (rule 62)
+
+    $default	reduce using rule 62 (op_bin)
+
+
+
+state 55
+
+    op_bin  ->  TK_MULT .   (rule 59)
+
+    $default	reduce using rule 59 (op_bin)
+
+
+
+state 56
+
+    op_bin  ->  TK_DIV .   (rule 60)
+
+    $default	reduce using rule 60 (op_bin)
+
+
+
+state 57
+
+    op_bin  ->  TK_AND .   (rule 69)
+
+    $default	reduce using rule 69 (op_bin)
+
+
+
+state 58
+
+    op_bin  ->  TK_OR .   (rule 70)
+
+    $default	reduce using rule 70 (op_bin)
+
+
+
+state 59
+
+    op_bin  ->  TK_XOR .   (rule 71)
+
+    $default	reduce using rule 71 (op_bin)
+
+
+
+state 60
+
+    op_bin  ->  TK_EQUAL .   (rule 63)
+
+    $default	reduce using rule 63 (op_bin)
+
+
+
+state 61
+
+    op_bin  ->  TK_UNEQUAL .   (rule 64)
+
+    $default	reduce using rule 64 (op_bin)
+
+
+
+state 62
+
+    op_bin  ->  TK_MAJOR .   (rule 65)
+
+    $default	reduce using rule 65 (op_bin)
+
+
+
+state 63
+
+    op_bin  ->  TK_MAJOR_EQUAL .   (rule 66)
+
+    $default	reduce using rule 66 (op_bin)
+
+
+
+state 64
+
+    op_bin  ->  TK_MINOR .   (rule 67)
+
+    $default	reduce using rule 67 (op_bin)
+
+
+
+state 65
+
+    op_bin  ->  TK_MINOR_EQUAL .   (rule 68)
+
+    $default	reduce using rule 68 (op_bin)
+
+
+
+state 66
+
+    blk_exp  ->  elem exp .   (rule 10)
+
+    $default	reduce using rule 10 (blk_exp)
+
+
+
+state 67
+
+    exp  ->  op_bin . @4 elem @5 exp   (rule 16)
+
+    $default	reduce using rule 14 (@4)
+
+    @4  	go to state 88
+
+
+
+state 68
+
+    op_rw  ->  TK_SUM_RW .   (rule 34)
+
+    $default	reduce using rule 34 (op_rw)
+
+
+
+state 69
+
+    op_rw  ->  TK_PROD_RW .   (rule 35)
+
+    $default	reduce using rule 35 (op_rw)
+
+
+
+state 70
+
+    elem  ->  @10 op_rw . dominion   (rule 30)
+
+    TK_ID	shift, and go to state 80
+
+    $default	reduce using rule 46 (id_stat)
+
+    dominion	go to state 89
+    id_stat	go to state 90
+    id_replic	go to state 91
+
+
+
+state 71
+
+    elem  ->  op_unary elem .   (rule 19)
+
+    $default	reduce using rule 19 (elem)
+
+
+
+state 72
+
+    model_type  ->  TK_CONTINUOUS .   (rule 83)
+
+    $default	reduce using rule 83 (model_type)
+
+
+
+state 73
+
+    model_type  ->  TK_DISCRETE .   (rule 82)
+
+    $default	reduce using rule 82 (model_type)
+
+
+
+state 74
+
+    blk_net  ->  TK_NETWORK TK_ID @22 TK_LEFT_PARENTHESIS model_type . TK_RIGHT_PARENTHESIS @23 blk_autom   (rule 81)
+
+    TK_RIGHT_PARENTHESIS	shift, and go to state 92
+
+
+
+state 75
+
+    blk_def_res  ->  TK_ID @38 . TK_ATTRIB blk_exp @39 TK_SEMICOLON blk_def_res   (rule 151)
+
+    TK_ATTRIB	shift, and go to state 93
+
+
+
+state 76
+
+    reach  ->  t_reach TK_REACH @20 TK_ATTRIB blk_exp @21 . TK_SEMICOLON   (rule 76)
+
+    TK_SEMICOLON	shift, and go to state 94
+
+
+
+state 77
+
+    blk_exp2  ->  blk_exp . list_exp   (rule 11)
+
+    TK_COMMA	shift, and go to state 95
+
+    $default	reduce using rule 13 (list_exp)
+
+    list_exp	go to state 96
+
+
+
+state 78
+
+    elem  ->  TK_MIN TK_LEFT_SQUARE_BRACKET blk_exp2 . TK_RIGHT_SQUARE_BRACKET   (rule 20)
+
+    TK_RIGHT_SQUARE_BRACKET	shift, and go to state 97
+
+
+
+state 79
+
+    elem  ->  TK_MAX TK_LEFT_SQUARE_BRACKET blk_exp2 . TK_RIGHT_SQUARE_BRACKET   (rule 21)
+
+    TK_RIGHT_SQUARE_BRACKET	shift, and go to state 98
+
+
+
+state 80
+
+    id_replic  ->  TK_ID . @17 replic   (rule 48)
+
+    $default	reduce using rule 47 (@17)
+
+    @17 	go to state 99
+
+
+
+state 81
+
+    elem  ->  TK_STATE_NUM @7 id_replic .   (rule 25)
+
+    $default	reduce using rule 25 (elem)
+
+
+
+state 82
+
+    elem  ->  TK_NBR @8 id_replic . @9 interval   (rule 28)
+
+    $default	reduce using rule 27 (@9)
+
+    @9  	go to state 100
+
+
+
+state 83
+
+    elem  ->  TK_REWARD @6 id_replic .   (rule 23)
+
+    $default	reduce using rule 23 (elem)
+
+
+
+state 84
+
+    replic  ->  TK_LEFT_SQUARE_BRACKET . @18 TK_INTEGER @19 TK_RIGHT_SQUARE_BRACKET   (rule 51)
+
+    $default	reduce using rule 49 (@18)
+
+    @18 	go to state 101
+
+
+
+state 85
+
+    elem  ->  TK_ID @11 replic .   (rule 32)
+
+    $default	reduce using rule 32 (elem)
+
+
+
+state 86
+
+    elem  ->  TK_LEFT_PARENTHESIS blk_exp TK_RIGHT_PARENTHESIS .   (rule 18)
+
+    $default	reduce using rule 18 (elem)
+
+
+
+state 87
+
+    blk_int_id  ->  TK_ID @1 TK_ATTRIB @2 blk_exp @3 TK_SEMICOLON . blk_int_id2   (rule 7)
+
+    TK_ID	shift, and go to state 3
+
+    $default	reduce using rule 9 (blk_int_id2)
+
+    blk_int_id	go to state 102
+    blk_int_id2	go to state 103
+
+
+
+state 88
+
+    exp  ->  op_bin @4 . elem @5 exp   (rule 16)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    elem	go to state 104
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 89
+
+    elem  ->  @10 op_rw dominion .   (rule 30)
+
+    $default	reduce using rule 30 (elem)
+
+
+
+state 90
+
+    dominion  ->  id_stat . @12 interval_1   (rule 37)
+
+    $default	reduce using rule 36 (@12)
+
+    @12 	go to state 105
+
+
+
+state 91
+
+    id_stat  ->  id_replic .   (rule 45)
+
+    $default	reduce using rule 45 (id_stat)
+
+
+
+state 92
+
+    blk_net  ->  TK_NETWORK TK_ID @22 TK_LEFT_PARENTHESIS model_type TK_RIGHT_PARENTHESIS . @23 blk_autom   (rule 81)
+
+    $default	reduce using rule 80 (@23)
+
+    @23 	go to state 106
+
+
+
+state 93
+
+    blk_def_res  ->  TK_ID @38 TK_ATTRIB . blk_exp @39 TK_SEMICOLON blk_def_res   (rule 151)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    blk_exp	go to state 107
+    elem	go to state 35
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 94
+
+    reach  ->  t_reach TK_REACH @20 TK_ATTRIB blk_exp @21 TK_SEMICOLON .   (rule 76)
+
+    $default	reduce using rule 76 (reach)
+
+
+
+state 95
+
+    list_exp  ->  TK_COMMA . blk_exp2   (rule 12)
+
+    TK_MIN	shift, and go to state 21
+    TK_MAX	shift, and go to state 22
+    TK_STATE_NUM	shift, and go to state 23
+    TK_NBR	shift, and go to state 24
+    TK_REWARD	shift, and go to state 25
+    TK_ID	shift, and go to state 26
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+    TK_LEFT_PARENTHESIS	shift, and go to state 30
+    TK_PLUS	shift, and go to state 31
+    TK_MINUS	shift, and go to state 32
+    TK_NOT	shift, and go to state 33
+
+    $default	reduce using rule 29 (@10)
+
+    blk_exp	go to state 77
+    blk_exp2	go to state 108
+    elem	go to state 35
+    @10 	go to state 36
+    number	go to state 37
+    op_unary	go to state 38
+
+
+
+state 96
+
+    blk_exp2  ->  blk_exp list_exp .   (rule 11)
+
+    $default	reduce using rule 11 (blk_exp2)
+
+
+
+state 97
+
+    elem  ->  TK_MIN TK_LEFT_SQUARE_BRACKET blk_exp2 TK_RIGHT_SQUARE_BRACKET .   (rule 20)
+
+    $default	reduce using rule 20 (elem)
+
+
+
+state 98
+
+    elem  ->  TK_MAX TK_LEFT_SQUARE_BRACKET blk_exp2 TK_RIGHT_SQUARE_BRACKET .   (rule 21)
+
+    $default	reduce using rule 21 (elem)
+
+
+
+state 99
+
+    id_replic  ->  TK_ID @17 . replic   (rule 48)
+
+    TK_LEFT_SQUARE_BRACKET	shift, and go to state 84
+
+    $default	reduce using rule 52 (replic)
+
+    replic	go to state 109
+
+
+
+state 100
+
+    elem  ->  TK_NBR @8 id_replic @9 . interval   (rule 28)
+
+    TK_LEFT_PARENTHESIS	shift, and go to state 110
+
+    $default	reduce using rule 39 (interval)
+
+    interval	go to state 111
+    interval_1	go to state 112
+
+
+
+state 101
+
+    replic  ->  TK_LEFT_SQUARE_BRACKET @18 . TK_INTEGER @19 TK_RIGHT_SQUARE_BRACKET   (rule 51)
+
+    TK_INTEGER	shift, and go to state 113
+
+
+
+state 102
+
+    blk_int_id2  ->  blk_int_id .   (rule 8)
+
+    $default	reduce using rule 8 (blk_int_id2)
+
+
+
+state 103
+
+    blk_int_id  ->  TK_ID @1 TK_ATTRIB @2 blk_exp @3 TK_SEMICOLON blk_int_id2 .   (rule 7)
+
+    $default	reduce using rule 7 (blk_int_id)
+
+
+
+state 104
+
+    exp  ->  op_bin @4 elem . @5 exp   (rule 16)
+
+    $default	reduce using rule 15 (@5)
+
+    @5  	go to state 114
+
+
+
+state 105
+
+    dominion  ->  id_stat @12 . interval_1   (rule 37)
+
+    TK_LEFT_PARENTHESIS	shift, and go to state 110
+
+    interval_1	go to state 115
+
+
+
+state 106
+
+    blk_net  ->  TK_NETWORK TK_ID @22 TK_LEFT_PARENTHESIS model_type TK_RIGHT_PARENTHESIS @23 . blk_autom   (rule 81)
+
+    TK_AUTOMATON	shift, and go to state 116
+
+    blk_autom	go to state 117
+
+
+
+state 107
+
+    blk_def_res  ->  TK_ID @38 TK_ATTRIB blk_exp . @39 TK_SEMICOLON blk_def_res   (rule 151)
+
+    $default	reduce using rule 150 (@39)
+
+    @39 	go to state 118
+
+
+
+state 108
+
+    list_exp  ->  TK_COMMA blk_exp2 .   (rule 12)
+
+    $default	reduce using rule 12 (list_exp)
+
+
+
+state 109
+
+    id_replic  ->  TK_ID @17 replic .   (rule 48)
+
+    $default	reduce using rule 48 (id_replic)
+
+
+
+state 110
+
+    interval_1  ->  TK_LEFT_PARENTHESIS . @13 id_replic @14 TK_COMMA @15 id_replic @16 TK_RIGHT_PARENTHESIS   (rule 44)
+
+    $default	reduce using rule 40 (@13)
+
+    @13 	go to state 119
+
+
+
+state 111
+
+    elem  ->  TK_NBR @8 id_replic @9 interval .   (rule 28)
+
+    $default	reduce using rule 28 (elem)
+
+
+
+state 112
+
+    interval  ->  interval_1 .   (rule 38)
+
+    $default	reduce using rule 38 (interval)
+
+
+
+state 113
+
+    replic  ->  TK_LEFT_SQUARE_BRACKET @18 TK_INTEGER . @19 TK_RIGHT_SQUARE_BRACKET   (rule 51)
+
+    $default	reduce using rule 50 (@19)
+
+    @19 	go to state 120
+
+
+
+state 114
+
+    exp  ->  op_bin @4 elem @5 . exp   (rule 16)
+
+    TK_SIMPLE	shift, and go to state 51
+    TK_DOUBLE	shift, and go to state 52
+    TK_PLUS	shift, and go to state 53
+    TK_MINUS	shift, and go to state 54
+    TK_MULT	shift, and go to state 55
+    TK_DIV	shift, and go to state 56
+    TK_AND	shift, and go to state 57
+    TK_OR	shift, and go to state 58
+    TK_XOR	shift, and go to state 59
+    TK_EQUAL	shift, and go to state 60
+    TK_UNEQUAL	shift, and go to state 61
+    TK_MAJOR	shift, and go to state 62
+    TK_MAJOR_EQUAL	shift, and go to state 63
+    TK_MINOR	shift, and go to state 64
+    TK_MINOR_EQUAL	shift, and go to state 65
+
+    $default	reduce using rule 17 (exp)
+
+    exp 	go to state 121
+    op_bin	go to state 67
+
+
+
+state 115
+
+    dominion  ->  id_stat @12 interval_1 .   (rule 37)
+
+    $default	reduce using rule 37 (dominion)
+
+
+
+state 116
+
+    blk_autom  ->  TK_AUTOMATON . @24 TK_ID @25 blk_replic blk_state @26 blk_autom2   (rule 87)
+
+    $default	reduce using rule 84 (@24)
+
+    @24 	go to state 122
+
+
+
+state 117
+
+    blk_net  ->  TK_NETWORK TK_ID @22 TK_LEFT_PARENTHESIS model_type TK_RIGHT_PARENTHESIS @23 blk_autom .   (rule 81)
+
+    $default	reduce using rule 81 (blk_net)
+
+
+
+state 118
+
+    blk_def_res  ->  TK_ID @38 TK_ATTRIB blk_exp @39 . TK_SEMICOLON blk_def_res   (rule 151)
+
+    TK_SEMICOLON	shift, and go to state 123
+
+
+
+state 119
+
+    interval_1  ->  TK_LEFT_PARENTHESIS @13 . id_replic @14 TK_COMMA @15 id_replic @16 TK_RIGHT_PARENTHESIS   (rule 44)
+
+    TK_ID	shift, and go to state 80
+
+    id_replic	go to state 124
+
+
+
+state 120
+
+    replic  ->  TK_LEFT_SQUARE_BRACKET @18 TK_INTEGER @19 . TK_RIGHT_SQUARE_BRACKET   (rule 51)
+
+    TK_RIGHT_SQUARE_BRACKET	shift, and go to state 125
+
+
+
+state 121
+
+    exp  ->  op_bin @4 elem @5 exp .   (rule 16)
+
+    $default	reduce using rule 16 (exp)
+
+
+
+state 122
+
+    blk_autom  ->  TK_AUTOMATON @24 . TK_ID @25 blk_replic blk_state @26 blk_autom2   (rule 87)
+
+    TK_ID	shift, and go to state 126
+
+
+
+state 123
+
+    blk_def_res  ->  TK_ID @38 TK_ATTRIB blk_exp @39 TK_SEMICOLON . blk_def_res   (rule 151)
+
+    TK_ID	shift, and go to state 40
+
+    $default	reduce using rule 152 (blk_def_res)
+
+    blk_def_res	go to state 127
+
+
+
+state 124
+
+    interval_1  ->  TK_LEFT_PARENTHESIS @13 id_replic . @14 TK_COMMA @15 id_replic @16 TK_RIGHT_PARENTHESIS   (rule 44)
+
+    $default	reduce using rule 41 (@14)
+
+    @14 	go to state 128
+
+
+
+state 125
+
+    replic  ->  TK_LEFT_SQUARE_BRACKET @18 TK_INTEGER @19 TK_RIGHT_SQUARE_BRACKET .   (rule 51)
+
+    $default	reduce using rule 51 (replic)
+
+
+
+state 126
+
+    blk_autom  ->  TK_AUTOMATON @24 TK_ID . @25 blk_replic blk_state @26 blk_autom2   (rule 87)
+
+    $default	reduce using rule 85 (@25)
+
+    @25 	go to state 129
+
+
+
+state 127
+
+    blk_def_res  ->  TK_ID @38 TK_ATTRIB blk_exp @39 TK_SEMICOLON blk_def_res .   (rule 151)
+
+    $default	reduce using rule 151 (blk_def_res)
+
+
+
+state 128
+
+    interval_1  ->  TK_LEFT_PARENTHESIS @13 id_replic @14 . TK_COMMA @15 id_replic @16 TK_RIGHT_PARENTHESIS   (rule 44)
+
+    TK_COMMA	shift, and go to state 130
+
+
+
+state 129
+
+    blk_autom  ->  TK_AUTOMATON @24 TK_ID @25 . blk_replic blk_state @26 blk_autom2   (rule 87)
+
+    TK_LEFT_SQUARE_BRACKET	shift, and go to state 131
+
+    $default	reduce using rule 136 (blk_replic)
+
+    blk_replic	go to state 132
+
+
+
+state 130
+
+    interval_1  ->  TK_LEFT_PARENTHESIS @13 id_replic @14 TK_COMMA . @15 id_replic @16 TK_RIGHT_PARENTHESIS   (rule 44)
+
+    $default	reduce using rule 42 (@15)
+
+    @15 	go to state 133
+
+
+
+state 131
+
+    blk_replic  ->  TK_LEFT_SQUARE_BRACKET . replic_number TK_RIGHT_SQUARE_BRACKET   (rule 135)
+
+    TK_ID	shift, and go to state 134
+    TK_INTEGER	shift, and go to state 135
+
+    replic_number	go to state 136
+
+
+
+state 132
+
+    blk_autom  ->  TK_AUTOMATON @24 TK_ID @25 blk_replic . blk_state @26 blk_autom2   (rule 87)
+
+    TK_STATE	shift, and go to state 137
+
+    blk_state	go to state 138
+
+
+
+state 133
+
+    interval_1  ->  TK_LEFT_PARENTHESIS @13 id_replic @14 TK_COMMA @15 . id_replic @16 TK_RIGHT_PARENTHESIS   (rule 44)
+
+    TK_ID	shift, and go to state 80
+
+    id_replic	go to state 139
+
+
+
+state 134
+
+    replic_number  ->  TK_ID .   (rule 138)
+
+    $default	reduce using rule 138 (replic_number)
+
+
+
+state 135
+
+    replic_number  ->  TK_INTEGER .   (rule 137)
+
+    $default	reduce using rule 137 (replic_number)
+
+
+
+state 136
+
+    blk_replic  ->  TK_LEFT_SQUARE_BRACKET replic_number . TK_RIGHT_SQUARE_BRACKET   (rule 135)
+
+    TK_RIGHT_SQUARE_BRACKET	shift, and go to state 140
+
+
+
+state 137
+
+    blk_state  ->  TK_STATE . @27 TK_ID @28 blk_queue blk_reward blk_trans @29 blk_state2   (rule 93)
+
+    $default	reduce using rule 90 (@27)
+
+    @27 	go to state 141
+
+
+
+state 138
+
+    blk_autom  ->  TK_AUTOMATON @24 TK_ID @25 blk_replic blk_state . @26 blk_autom2   (rule 87)
+
+    $default	reduce using rule 86 (@26)
+
+    @26 	go to state 142
+
+
+
+state 139
+
+    interval_1  ->  TK_LEFT_PARENTHESIS @13 id_replic @14 TK_COMMA @15 id_replic . @16 TK_RIGHT_PARENTHESIS   (rule 44)
+
+    $default	reduce using rule 43 (@16)
+
+    @16 	go to state 143
+
+
+
+state 140
+
+    blk_replic  ->  TK_LEFT_SQUARE_BRACKET replic_number TK_RIGHT_SQUARE_BRACKET .   (rule 135)
+
+    $default	reduce using rule 135 (blk_replic)
+
+
+
+state 141
+
+    blk_state  ->  TK_STATE @27 . TK_ID @28 blk_queue blk_reward blk_trans @29 blk_state2   (rule 93)
+
+    TK_ID	shift, and go to state 144
+
+
+
+state 142
+
+    blk_autom  ->  TK_AUTOMATON @24 TK_ID @25 blk_replic blk_state @26 . blk_autom2   (rule 87)
+
+    TK_AUTOMATON	shift, and go to state 116
+
+    $default	reduce using rule 89 (blk_autom2)
+
+    blk_autom	go to state 145
+    blk_autom2	go to state 146
+
+
+
+state 143
+
+    interval_1  ->  TK_LEFT_PARENTHESIS @13 id_replic @14 TK_COMMA @15 id_replic @16 . TK_RIGHT_PARENTHESIS   (rule 44)
+
+    TK_RIGHT_PARENTHESIS	shift, and go to state 147
+
+
+
+state 144
+
+    blk_state  ->  TK_STATE @27 TK_ID . @28 blk_queue blk_reward blk_trans @29 blk_state2   (rule 93)
+
+    $default	reduce using rule 91 (@28)
+
+    @28 	go to state 148
+
+
+
+state 145
+
+    blk_autom2  ->  blk_autom .   (rule 88)
+
+    $default	reduce using rule 88 (blk_autom2)
+
+
+
+state 146
+
+    blk_autom  ->  TK_AUTOMATON @24 TK_ID @25 blk_replic blk_state @26 blk_autom2 .   (rule 87)
+
+    $default	reduce using rule 87 (blk_autom)
+
+
+
+state 147
+
+    interval_1  ->  TK_LEFT_PARENTHESIS @13 id_replic @14 TK_COMMA @15 id_replic @16 TK_RIGHT_PARENTHESIS .   (rule 44)
+
+    $default	reduce using rule 44 (interval_1)
+
+
+
+state 148
+
+    blk_state  ->  TK_STATE @27 TK_ID @28 . blk_queue blk_reward blk_trans @29 blk_state2   (rule 93)
+
+    TK_LEFT_SQUARE_BRACKET	shift, and go to state 149
+
+    $default	reduce using rule 140 (blk_queue)
+
+    blk_queue	go to state 150
+
+
+
+state 149
+
+    blk_queue  ->  TK_LEFT_SQUARE_BRACKET . queue_number TK_RIGHT_SQUARE_BRACKET   (rule 139)
+
+    TK_ID	shift, and go to state 151
+    TK_INTEGER	shift, and go to state 152
+
+    queue_number	go to state 153
+
+
+
+state 150
+
+    blk_state  ->  TK_STATE @27 TK_ID @28 blk_queue . blk_reward blk_trans @29 blk_state2   (rule 93)
+
+    TK_LEFT_PARENTHESIS	shift, and go to state 154
+
+    $default	reduce using rule 144 (blk_reward)
+
+    blk_reward	go to state 155
+
+
+
+state 151
+
+    queue_number  ->  TK_ID .   (rule 142)
+
+    $default	reduce using rule 142 (queue_number)
+
+
+
+state 152
+
+    queue_number  ->  TK_INTEGER .   (rule 141)
+
+    $default	reduce using rule 141 (queue_number)
+
+
+
+state 153
+
+    blk_queue  ->  TK_LEFT_SQUARE_BRACKET queue_number . TK_RIGHT_SQUARE_BRACKET   (rule 139)
+
+    TK_RIGHT_SQUARE_BRACKET	shift, and go to state 156
+
+
+
+state 154
+
+    blk_reward  ->  TK_LEFT_PARENTHESIS . reward_number TK_RIGHT_PARENTHESIS   (rule 143)
+
+    TK_ID	shift, and go to state 157
+    TK_PLUS	shift, and go to state 158
+    TK_MINUS	shift, and go to state 159
+
+    $default	reduce using rule 155 (signal)
+
+    reward_number	go to state 160
+    signal	go to state 161
+
+
+
+state 155
+
+    blk_state  ->  TK_STATE @27 TK_ID @28 blk_queue blk_reward . blk_trans @29 blk_state2   (rule 93)
+
+    TK_TRANS	shift, and go to state 162
+
+    blk_trans	go to state 163
+
+
+
+state 156
+
+    blk_queue  ->  TK_LEFT_SQUARE_BRACKET queue_number TK_RIGHT_SQUARE_BRACKET .   (rule 139)
+
+    $default	reduce using rule 139 (blk_queue)
+
+
+
+state 157
+
+    reward_number  ->  TK_ID .   (rule 146)
+
+    $default	reduce using rule 146 (reward_number)
+
+
+
+state 158
+
+    signal  ->  TK_PLUS .   (rule 153)
+
+    $default	reduce using rule 153 (signal)
+
+
+
+state 159
+
+    signal  ->  TK_MINUS .   (rule 154)
+
+    $default	reduce using rule 154 (signal)
+
+
+
+state 160
+
+    blk_reward  ->  TK_LEFT_PARENTHESIS reward_number . TK_RIGHT_PARENTHESIS   (rule 143)
+
+    TK_RIGHT_PARENTHESIS	shift, and go to state 164
+
+
+
+state 161
+
+    reward_number  ->  signal . number   (rule 145)
+
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+
+    number	go to state 165
+
+
+
+state 162
+
+    blk_trans  ->  TK_TRANS . @30 TK_LEFT_PARENTHESIS dst_state TK_RIGHT_PARENTHESIS blk_type_trans @31 blk_trans2   (rule 98)
+
+    $default	reduce using rule 96 (@30)
+
+    @30 	go to state 166
+
+
+
+state 163
+
+    blk_state  ->  TK_STATE @27 TK_ID @28 blk_queue blk_reward blk_trans . @29 blk_state2   (rule 93)
+
+    $default	reduce using rule 92 (@29)
+
+    @29 	go to state 167
+
+
+
+state 164
+
+    blk_reward  ->  TK_LEFT_PARENTHESIS reward_number TK_RIGHT_PARENTHESIS .   (rule 143)
+
+    $default	reduce using rule 143 (blk_reward)
+
+
+
+state 165
+
+    reward_number  ->  signal number .   (rule 145)
+
+    $default	reduce using rule 145 (reward_number)
+
+
+
+state 166
+
+    blk_trans  ->  TK_TRANS @30 . TK_LEFT_PARENTHESIS dst_state TK_RIGHT_PARENTHESIS blk_type_trans @31 blk_trans2   (rule 98)
+
+    TK_LEFT_PARENTHESIS	shift, and go to state 168
+
+
+
+state 167
+
+    blk_state  ->  TK_STATE @27 TK_ID @28 blk_queue blk_reward blk_trans @29 . blk_state2   (rule 93)
+
+    TK_STATE	shift, and go to state 137
+
+    $default	reduce using rule 95 (blk_state2)
+
+    blk_state	go to state 169
+    blk_state2	go to state 170
+
+
+
+state 168
+
+    blk_trans  ->  TK_TRANS @30 TK_LEFT_PARENTHESIS . dst_state TK_RIGHT_PARENTHESIS blk_type_trans @31 blk_trans2   (rule 98)
+
+    TK_ID	shift, and go to state 171
+    TK_PLUS	shift, and go to state 172
+    TK_PLUS_PLUS	shift, and go to state 173
+    TK_MINUS	shift, and go to state 174
+    TK_MINUS_MINUS	shift, and go to state 175
+    TK_EQUAL	shift, and go to state 176
+
+    dst_state	go to state 177
+
+
+
+state 169
+
+    blk_state2  ->  blk_state .   (rule 94)
+
+    $default	reduce using rule 94 (blk_state2)
+
+
+
+state 170
+
+    blk_state  ->  TK_STATE @27 TK_ID @28 blk_queue blk_reward blk_trans @29 blk_state2 .   (rule 93)
+
+    $default	reduce using rule 93 (blk_state)
+
+
+
+state 171
+
+    dst_state  ->  TK_ID . @32 dst_replic   (rule 102)
+
+    $default	reduce using rule 101 (@32)
+
+    @32 	go to state 178
+
+
+
+state 172
+
+    dst_state  ->  TK_PLUS . TK_INTEGER   (rule 107)
+
+    TK_INTEGER	shift, and go to state 179
+
+
+
+state 173
+
+    dst_state  ->  TK_PLUS_PLUS .   (rule 104)
+
+    $default	reduce using rule 104 (dst_state)
+
+
+
+state 174
+
+    dst_state  ->  TK_MINUS . TK_INTEGER   (rule 106)
+
+    TK_INTEGER	shift, and go to state 180
+
+
+
+state 175
+
+    dst_state  ->  TK_MINUS_MINUS .   (rule 105)
+
+    $default	reduce using rule 105 (dst_state)
+
+
+
+state 176
+
+    dst_state  ->  TK_EQUAL .   (rule 103)
+
+    $default	reduce using rule 103 (dst_state)
+
+
+
+state 177
+
+    blk_trans  ->  TK_TRANS @30 TK_LEFT_PARENTHESIS dst_state . TK_RIGHT_PARENTHESIS blk_type_trans @31 blk_trans2   (rule 98)
+
+    TK_RIGHT_PARENTHESIS	shift, and go to state 181
+
+
+
+state 178
+
+    dst_state  ->  TK_ID @32 . dst_replic   (rule 102)
+
+    TK_LEFT_SQUARE_BRACKET	shift, and go to state 182
+
+    $default	reduce using rule 110 (dst_replic)
+
+    dst_replic	go to state 183
+
+
+
+state 179
+
+    dst_state  ->  TK_PLUS TK_INTEGER .   (rule 107)
+
+    $default	reduce using rule 107 (dst_state)
+
+
+
+state 180
+
+    dst_state  ->  TK_MINUS TK_INTEGER .   (rule 106)
+
+    $default	reduce using rule 106 (dst_state)
+
+
+
+state 181
+
+    blk_trans  ->  TK_TRANS @30 TK_LEFT_PARENTHESIS dst_state TK_RIGHT_PARENTHESIS . blk_type_trans @31 blk_trans2   (rule 98)
+
+    TK_MST	shift, and go to state 184
+    TK_SYN	shift, and go to state 185
+    TK_LOC	shift, and go to state 186
+
+    blk_type_trans	go to state 187
+
+
+
+state 182
+
+    dst_replic  ->  TK_LEFT_SQUARE_BRACKET . TK_INTEGER @33 TK_RIGHT_SQUARE_BRACKET   (rule 109)
+
+    TK_INTEGER	shift, and go to state 188
+
+
+
+state 183
+
+    dst_state  ->  TK_ID @32 dst_replic .   (rule 102)
+
+    $default	reduce using rule 102 (dst_state)
+
+
+
+state 184
+
+    blk_type_trans  ->  TK_MST . TK_ID @34 TK_LEFT_PARENTHESIS mst_rate blk_mst_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 112)
+
+    TK_ID	shift, and go to state 189
+
+
+
+state 185
+
+    blk_type_trans  ->  TK_SYN . TK_ID @35 blk_syn_prob blk_type_trans2   (rule 114)
+
+    TK_ID	shift, and go to state 190
+
+
+
+state 186
+
+    blk_type_trans  ->  TK_LOC . TK_ID @36 TK_LEFT_PARENTHESIS local_rate blk_local_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 116)
+
+    TK_ID	shift, and go to state 191
+
+
+
+state 187
+
+    blk_trans  ->  TK_TRANS @30 TK_LEFT_PARENTHESIS dst_state TK_RIGHT_PARENTHESIS blk_type_trans . @31 blk_trans2   (rule 98)
+
+    $default	reduce using rule 97 (@31)
+
+    @31 	go to state 192
+
+
+
+state 188
+
+    dst_replic  ->  TK_LEFT_SQUARE_BRACKET TK_INTEGER . @33 TK_RIGHT_SQUARE_BRACKET   (rule 109)
+
+    $default	reduce using rule 108 (@33)
+
+    @33 	go to state 193
+
+
+
+state 189
+
+    blk_type_trans  ->  TK_MST TK_ID . @34 TK_LEFT_PARENTHESIS mst_rate blk_mst_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 112)
+
+    $default	reduce using rule 111 (@34)
+
+    @34 	go to state 194
+
+
+
+state 190
+
+    blk_type_trans  ->  TK_SYN TK_ID . @35 blk_syn_prob blk_type_trans2   (rule 114)
+
+    $default	reduce using rule 113 (@35)
+
+    @35 	go to state 195
+
+
+
+state 191
+
+    blk_type_trans  ->  TK_LOC TK_ID . @36 TK_LEFT_PARENTHESIS local_rate blk_local_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 116)
+
+    $default	reduce using rule 115 (@36)
+
+    @36 	go to state 196
+
+
+
+state 192
+
+    blk_trans  ->  TK_TRANS @30 TK_LEFT_PARENTHESIS dst_state TK_RIGHT_PARENTHESIS blk_type_trans @31 . blk_trans2   (rule 98)
+
+    TK_TRANS	shift, and go to state 162
+
+    $default	reduce using rule 100 (blk_trans2)
+
+    blk_trans	go to state 197
+    blk_trans2	go to state 198
+
+
+
+state 193
+
+    dst_replic  ->  TK_LEFT_SQUARE_BRACKET TK_INTEGER @33 . TK_RIGHT_SQUARE_BRACKET   (rule 109)
+
+    TK_RIGHT_SQUARE_BRACKET	shift, and go to state 199
+
+
+
+state 194
+
+    blk_type_trans  ->  TK_MST TK_ID @34 . TK_LEFT_PARENTHESIS mst_rate blk_mst_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 112)
+
+    TK_LEFT_PARENTHESIS	shift, and go to state 200
+
+
+
+state 195
+
+    blk_type_trans  ->  TK_SYN TK_ID @35 . blk_syn_prob blk_type_trans2   (rule 114)
+
+    TK_LEFT_PARENTHESIS	shift, and go to state 201
+
+    $default	reduce using rule 122 (blk_syn_prob)
+
+    blk_syn_prob	go to state 202
+
+
+
+state 196
+
+    blk_type_trans  ->  TK_LOC TK_ID @36 . TK_LEFT_PARENTHESIS local_rate blk_local_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 116)
+
+    TK_LEFT_PARENTHESIS	shift, and go to state 203
+
+
+
+state 197
+
+    blk_trans2  ->  blk_trans .   (rule 99)
+
+    $default	reduce using rule 99 (blk_trans2)
+
+
+
+state 198
+
+    blk_trans  ->  TK_TRANS @30 TK_LEFT_PARENTHESIS dst_state TK_RIGHT_PARENTHESIS blk_type_trans @31 blk_trans2 .   (rule 98)
+
+    $default	reduce using rule 98 (blk_trans)
+
+
+
+state 199
+
+    dst_replic  ->  TK_LEFT_SQUARE_BRACKET TK_INTEGER @33 TK_RIGHT_SQUARE_BRACKET .   (rule 109)
+
+    $default	reduce using rule 109 (dst_replic)
+
+
+
+state 200
+
+    blk_type_trans  ->  TK_MST TK_ID @34 TK_LEFT_PARENTHESIS . mst_rate blk_mst_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 112)
+
+    TK_ID	shift, and go to state 204
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+
+    number	go to state 205
+    mst_rate	go to state 206
+
+
+
+state 201
+
+    blk_syn_prob  ->  TK_LEFT_PARENTHESIS . syn_prob TK_RIGHT_PARENTHESIS   (rule 121)
+
+    TK_ID	shift, and go to state 207
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+
+    number	go to state 208
+    syn_prob	go to state 209
+
+
+
+state 202
+
+    blk_type_trans  ->  TK_SYN TK_ID @35 blk_syn_prob . blk_type_trans2   (rule 114)
+
+    TK_MST	shift, and go to state 184
+    TK_SYN	shift, and go to state 185
+    TK_LOC	shift, and go to state 186
+
+    $default	reduce using rule 118 (blk_type_trans2)
+
+    blk_type_trans	go to state 210
+    blk_type_trans2	go to state 211
+
+
+
+state 203
+
+    blk_type_trans  ->  TK_LOC TK_ID @36 TK_LEFT_PARENTHESIS . local_rate blk_local_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 116)
+
+    TK_ID	shift, and go to state 212
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+
+    number	go to state 213
+    local_rate	go to state 214
+
+
+
+state 204
+
+    mst_rate  ->  TK_ID .   (rule 126)
+
+    $default	reduce using rule 126 (mst_rate)
+
+
+
+state 205
+
+    mst_rate  ->  number .   (rule 125)
+
+    $default	reduce using rule 125 (mst_rate)
+
+
+
+state 206
+
+    blk_type_trans  ->  TK_MST TK_ID @34 TK_LEFT_PARENTHESIS mst_rate . blk_mst_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 112)
+
+    TK_COMMA	shift, and go to state 215
+
+    $default	reduce using rule 120 (blk_mst_prob)
+
+    blk_mst_prob	go to state 216
+
+
+
+state 207
+
+    syn_prob  ->  TK_ID .   (rule 130)
+
+    $default	reduce using rule 130 (syn_prob)
+
+
+
+state 208
+
+    syn_prob  ->  number .   (rule 129)
+
+    $default	reduce using rule 129 (syn_prob)
+
+
+
+state 209
+
+    blk_syn_prob  ->  TK_LEFT_PARENTHESIS syn_prob . TK_RIGHT_PARENTHESIS   (rule 121)
+
+    TK_RIGHT_PARENTHESIS	shift, and go to state 217
+
+
+
+state 210
+
+    blk_type_trans2  ->  blk_type_trans .   (rule 117)
+
+    $default	reduce using rule 117 (blk_type_trans2)
+
+
+
+state 211
+
+    blk_type_trans  ->  TK_SYN TK_ID @35 blk_syn_prob blk_type_trans2 .   (rule 114)
+
+    $default	reduce using rule 114 (blk_type_trans)
+
+
+
+state 212
+
+    local_rate  ->  TK_ID .   (rule 132)
+
+    $default	reduce using rule 132 (local_rate)
+
+
+
+state 213
+
+    local_rate  ->  number .   (rule 131)
+
+    $default	reduce using rule 131 (local_rate)
+
+
+
+state 214
+
+    blk_type_trans  ->  TK_LOC TK_ID @36 TK_LEFT_PARENTHESIS local_rate . blk_local_prob TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 116)
+
+    TK_COMMA	shift, and go to state 218
+
+    $default	reduce using rule 124 (blk_local_prob)
+
+    blk_local_prob	go to state 219
+
+
+
+state 215
+
+    blk_mst_prob  ->  TK_COMMA . mst_prob   (rule 119)
+
+    TK_ID	shift, and go to state 220
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+
+    number	go to state 221
+    mst_prob	go to state 222
+
+
+
+state 216
+
+    blk_type_trans  ->  TK_MST TK_ID @34 TK_LEFT_PARENTHESIS mst_rate blk_mst_prob . TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 112)
+
+    TK_RIGHT_PARENTHESIS	shift, and go to state 223
+
+
+
+state 217
+
+    blk_syn_prob  ->  TK_LEFT_PARENTHESIS syn_prob TK_RIGHT_PARENTHESIS .   (rule 121)
+
+    $default	reduce using rule 121 (blk_syn_prob)
+
+
+
+state 218
+
+    blk_local_prob  ->  TK_COMMA . local_prob   (rule 123)
+
+    TK_ID	shift, and go to state 224
+    TK_INTEGER	shift, and go to state 27
+    TK_REAL	shift, and go to state 28
+    TK_EXPONENT	shift, and go to state 29
+
+    number	go to state 225
+    local_prob	go to state 226
+
+
+
+state 219
+
+    blk_type_trans  ->  TK_LOC TK_ID @36 TK_LEFT_PARENTHESIS local_rate blk_local_prob . TK_RIGHT_PARENTHESIS blk_type_trans2   (rule 116)
+
+    TK_RIGHT_PARENTHESIS	shift, and go to state 227
+
+
+
+state 220
+
+    mst_prob  ->  TK_ID .   (rule 128)
+
+    $default	reduce using rule 128 (mst_prob)
+
+
+
+state 221
+
+    mst_prob  ->  number .   (rule 127)
+
+    $default	reduce using rule 127 (mst_prob)
+
+
+
+state 222
+
+    blk_mst_prob  ->  TK_COMMA mst_prob .   (rule 119)
+
+    $default	reduce using rule 119 (blk_mst_prob)
+
+
+
+state 223
+
+    blk_type_trans  ->  TK_MST TK_ID @34 TK_LEFT_PARENTHESIS mst_rate blk_mst_prob TK_RIGHT_PARENTHESIS . blk_type_trans2   (rule 112)
+
+    TK_MST	shift, and go to state 184
+    TK_SYN	shift, and go to state 185
+    TK_LOC	shift, and go to state 186
+
+    $default	reduce using rule 118 (blk_type_trans2)
+
+    blk_type_trans	go to state 210
+    blk_type_trans2	go to state 228
+
+
+
+state 224
+
+    local_prob  ->  TK_ID .   (rule 134)
+
+    $default	reduce using rule 134 (local_prob)
+
+
+
+state 225
+
+    local_prob  ->  number .   (rule 133)
+
+    $default	reduce using rule 133 (local_prob)
+
+
+
+state 226
+
+    blk_local_prob  ->  TK_COMMA local_prob .   (rule 123)
+
+    $default	reduce using rule 123 (blk_local_prob)
+
+
+
+state 227
+
+    blk_type_trans  ->  TK_LOC TK_ID @36 TK_LEFT_PARENTHESIS local_rate blk_local_prob TK_RIGHT_PARENTHESIS . blk_type_trans2   (rule 116)
+
+    TK_MST	shift, and go to state 184
+    TK_SYN	shift, and go to state 185
+    TK_LOC	shift, and go to state 186
+
+    $default	reduce using rule 118 (blk_type_trans2)
+
+    blk_type_trans	go to state 210
+    blk_type_trans2	go to state 229
+
+
+
+state 228
+
+    blk_type_trans  ->  TK_MST TK_ID @34 TK_LEFT_PARENTHESIS mst_rate blk_mst_prob TK_RIGHT_PARENTHESIS blk_type_trans2 .   (rule 112)
+
+    $default	reduce using rule 112 (blk_type_trans)
+
+
+
+state 229
+
+    blk_type_trans  ->  TK_LOC TK_ID @36 TK_LEFT_PARENTHESIS local_rate blk_local_prob TK_RIGHT_PARENTHESIS blk_type_trans2 .   (rule 116)
+
+    $default	reduce using rule 116 (blk_type_trans)
+
+
+
+state 230
+
+    $   	go to state 231
+
+
+
+state 231
+
+    $   	go to state 232
+
+
+
+state 232
+
+    $default	accept

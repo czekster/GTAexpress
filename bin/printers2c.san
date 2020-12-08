@@ -1,0 +1,30 @@
+identifiers
+// scale here is one hour
+ T1 = 10;    // turn on Laser printer
+ T2 = 25;    // turn on Ink jet printer
+ T3 = 10;    // choose eco mode on Ink jet
+ T4 = 1;     // admin reset both printers with command
+
+events
+  loc l1 T1;
+  loc l2 T2;
+  loc l3 T3;
+  syn reset T4;
+  
+partial reachability = ((st Laser == OFF) && (st Inkjet == OFF));
+
+network Print (continuous)
+  aut Laser
+    stt ON to (OFF) reset
+    stt OFF to (ON) l1
+
+  aut Inkjet
+    stt ON to (OFF) reset
+           to (ECO) l3
+    stt OFF to (ON) l2
+    stt ECO to (OFF) reset
+
+results
+  Laser_ON = (st Laser == ON);
+  Inkjet_ON = (st Inkjet == ON);
+  Inkjet_ECO = (st Inkjet == ECO);

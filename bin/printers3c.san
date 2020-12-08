@@ -1,0 +1,41 @@
+//Author: Ricardo M. Czekster
+//Date: 01/02/2016
+
+identifiers
+  r_overload = 5;
+  r_l1 = 1;
+  r_l2 = 2;
+  r_l3 = 3;
+
+events
+  syn ol (r_overload);
+  loc l1 (r_l1);
+  loc l2 (r_l2);
+  loc l3 (r_l3);
+
+// all printers start off
+partial reachability = ((st P1 == OFF) && (st P2 == OFF) && (st P3 == OFF));
+
+network PRINTER (continuous)
+  aut P1
+    stt OFF to (ON)  l1
+    stt ON  to (OFF) ol
+
+  aut P2
+    stt OFF to (ON)  l2
+    stt ON  to (OFF) ol
+
+  aut P3
+    stt OFF to (ON)  l3
+    stt ON  to (OFF) ol
+
+results
+OFF_OFF_OFF = ((st P1 == OFF) && (st P2 == OFF) && (st P3 == OFF));
+OFF_OFF_ON  = ((st P1 == OFF) && (st P2 == OFF) && (st P3 == ON));
+OFF_ON_OFF  = ((st P1 == OFF) && (st P2 == ON) && (st P3 == OFF));
+OFF_ON_ON   = ((st P1 == OFF) && (st P2 == ON) && (st P3 == ON));
+ON_OFF_OFF  = ((st P1 == ON) && (st P2 == OFF) && (st P3 == OFF));
+ON_OFF_ON   = ((st P1 == ON) && (st P2 == OFF) && (st P3 == ON));
+ON_ON_OFF   = ((st P1 == ON) && (st P2 == ON) && (st P3 == OFF));
+ON_ON_ON    = ((st P1 == ON) && (st P2 == ON) && (st P3 == ON));
+
