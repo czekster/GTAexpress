@@ -494,13 +494,13 @@ const strat_typ def_strat     = strat_A;       // Default Strategy to 'cut' the 
 #define MAX_AUT_NAME 128
 #define MAX_STT_NAME 128
 #define MAX_EXP_SIZE 32768
-/*
+/**/
 #define DOMAIN 1
 #define CONSTANT 3
 #define AUT_INTEGER 6
 #define AUT_CONSTANT 7
 
-*/
+/**/
 #define INTEGER 4
 #define AUT_DOMAIN 8
 #define EMPTY 0
