@@ -46,6 +46,7 @@ echo "----done----"
 
 ## Steps to use the script:
 - put this script in the ``bin/`` folder: ``cp run.sh ./bin``
+- go to this folder: ``cd bin``
 - change permissions: ``chmod a+x run.sh``
 - run 'printers3c.san' model (for example): ``./run.sh printers3c``
 - analyze results for the model: ``vi printers3c.tim``
